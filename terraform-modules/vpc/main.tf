@@ -1,3 +1,12 @@
+provider "aws" {
+  region = var.aws_region
+}
+
+terraform {
+  backend "s3" {}
+  required_version = "= 0.12.20"
+}
+
 // Create the VPC
 resource  "aws_vpc" "vpc" {
   cidr_block           =  var.vpc_cidr
@@ -98,15 +107,3 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.private.id
 }
 
-# Output Section
-output "public_subnets_id" {
-  value = join(",", aws_subnet.public.*.id)
-}
-
-output "private_subnets_id" {
-  value = join(",", aws_subnet.private.*.id)
-}
-
-output "vpc_id" {
-  value = aws_vpc.vpc.id
-}
