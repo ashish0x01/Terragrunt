@@ -11,10 +11,6 @@ locals {
 resource "aws_route53_zone" "this" {
   name = var.domain
   tags = local.tags
-  vpc {
-    vpc_id = "vpc-029893a844f9b4799"
-  }
-
   lifecycle {
     create_before_destroy = true
   }
